@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    
+</head>
+<body id="paper" onload="init()">
+        <canvas id="canvas" width="200" height="200" style="border: 1px solid #000" onmousedown="mouse_click_flag=true" onmouseup="mouse_click_flag=false"></canvas>
+
+        <div class="text">
+            <div class="main">You find bonus!</div>
+        </div>
+      </body>
+      <style>
+        .custom-canvas{
+            position: relative;
+            clear: both;
+            width: 450px;
+            height: 200px;
+        }
+    
+        .text {
+            position: absolute;
+            top: 100px;
+            left: 30px;
+            z-index: -1;
+            font-weight: 600;
+            color: gold;
+            font-family: sans-serif;
+        }
+
+      </style>
+      <script type="text/javascript">
+          var mouseX = 0, mouseY = 0;
+          var canvas = document.getElementById("canvas");
+          var ctx = canvas.getContext('2d');
+          var body = document.getElementById("paper");
+          var mouse_click_flag = false;
+      
+          function init() {
+            draw()
+
+              window.addEventListener("mousemove", function(e) {
+                mouseX = e.pageX - canvas.offsetLeft
+                mouseY = e.pageY - canvas.offsetTop
+
+                if (mouse_click_flag) {
+                // ctx.clearRect(mouseX, mouseY, 10, 10)
+                    clearCircle(mouseX, mouseY, 10)
+                }
+              })
+          }
+
+          var clearCircle = function(x, y, radius)
+            {
+                ctx.save();
+                ctx.globalCompositeOperation = 'destination-out';
+                ctx.beginPath();
+                ctx.arc(x, y, radius, 0, 2 * Math.PI, false);
+                ctx.fill();
+                ctx.restore();
+            }
+      
+          function draw() {
+            ctx.fillStyle = "#F00";
+            ctx.fillRect(0, 0, canvas.width, canvas.height)
+          }
+          
+
+      </script>
+</html>
